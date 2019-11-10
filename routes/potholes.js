@@ -7,7 +7,7 @@ let Pothole = require("../models/pothole");
 let User = require("../models/users");
 
 // Secret key for JWT
-let secret = fs.readFileSync(__dirname + '/../../jwtkey').toString();
+let secret = fs.readFileSync(__dirname + '/../../jwtkey.txt').toString();
 let authenticateRecentEndpoint = true;
 
 function authenticateAuthToken(req) {
