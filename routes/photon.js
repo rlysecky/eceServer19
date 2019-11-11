@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Device = require("../models/device");
-var HwData = require("../models/hwdata");
+var Run = require("../models/run");
 
 /* POST: Register new device. */
 router.post('/pulse', function(req, res, next) {
@@ -9,8 +9,6 @@ router.post('/pulse', function(req, res, next) {
         status: "",
         message: ""
     };
-
-    console.log(req.body);
 
     // Ensure the POST data include properties id and email
     if (!req.body.hasOwnProperty("deviceId")) {
@@ -46,22 +44,22 @@ router.post('/pulse', function(req, res, next) {
                 return res.status(201).send(JSON.stringify(responseJson));
             } else {
                 // Create a new hw data with user email time stamp 
-                var newHwData = new HwData({
-                    userEmail: device.userEmail,
+                var run = new Run({
                     deviceid: req.body.deviceId,
-                    longitude: req.body.longitude,
-                    latitude: req.body.latitude
+                    lon: req.body.longitude,
+                    lat: req.body.latitude,
+                    uv: req.body.uv
                 });
 
                 // Save device. If successful, return success. If not, return error message.                          
-                newHwData.save(function(err, newHwData) {
+                run.save(function(err, run) {
                     if (err) {
                         responseJson.status = "ERROR";
                         responseJson.message = "Error saving data in db.";
                         return res.status(201).send(JSON.stringify(responseJson));
                     } else {
                         responseJson.status = "OK";
-                        responseJson.message = "Data saved in db with object ID " + newHwData._id + ".";
+                        responseJson.message = "Data saved in db with object ID " + run._id + ".";
                         return res.status(201).send(JSON.stringify(responseJson));
                     }
                 });
