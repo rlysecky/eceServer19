@@ -20,10 +20,10 @@ function accountInfoSuccess(data, textSatus, jqXHR) {
     $("#addDeviceForm").before("<li class='collection-item'>ID: " +
       device.deviceId + ", APIKEY: " + device.apikey + 
       " <button id='ping-" + device.deviceId + "' class='waves-effect waves-light btn'>Ping</button> " +
+      " <button id='activity-" + device.deviceId + "' class='waves-effect waves-light btn'>Show Activity</button> " +
       " </li>");
-    $("#ping-"+device.deviceId).click(function(event) {
-      pingDevice(event, device.deviceId);
-    });
+    $("#ping-"+device.deviceId).click({deviceId: device.deviceId},pingDevice);
+    $("#activity-"+device.deviceId).click({deviceId: device.deviceId},populateDeviceActivity);
   }
 }
 
@@ -55,6 +55,7 @@ function registerDevice() {
        $("#addDeviceForm").before("<li class='collection-item'>ID: " +
        $("#deviceId").val() + ", APIKEY: " + data["apikey"] + 
          " <button id='ping-" + $("#deviceId").val() + "' class='waves-effect waves-light btn'>Ping</button> " +
+         " <button id='activity-" + $("#deviceId").val() + "' class='waves-effect waves-light btn'>Show Activity</button> " +
          "</li>");
        $("#ping-"+$("#deviceId").val()).click(function(event) {
          pingDevice(event, device.deviceId);
@@ -84,6 +85,10 @@ function pingDevice(event, deviceId) {
             $("#error").show();
         }
     }); 
+}
+
+function populateDeviceActivity(event){
+  console.log(event.data.deviceId);
 }
 
 // Show add device form and hide the add device button (really a link)

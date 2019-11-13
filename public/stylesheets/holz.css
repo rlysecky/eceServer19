@@ -25,3 +25,7 @@
 .input-field input {
    color: white;
 }
+
+#devices button {
+    margin-left:10px;
+}

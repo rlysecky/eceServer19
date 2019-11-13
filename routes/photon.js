@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Device = require("../models/device");
-var Run = require("../models/run");
+var Activity = require("../models/activity");
 
 /* POST: Register new device. */
 router.post('/pulse', function(req, res, next) {
@@ -44,7 +44,7 @@ router.post('/pulse', function(req, res, next) {
                 return res.status(201).send(JSON.stringify(responseJson));
             } else {
                 // Create a new hw data with user email time stamp 
-                var run = new Run({
+                var activity = new Activity({
                     deviceid: req.body.deviceId,
                     lon: req.body.longitude,
                     lat: req.body.latitude,
@@ -52,7 +52,7 @@ router.post('/pulse', function(req, res, next) {
                 });
 
                 // Save device. If successful, return success. If not, return error message.                          
-                run.save(function(err, run) {
+                activity.save(function(err, run) {
                     if (err) {
                         responseJson.status = "ERROR";
                         responseJson.message = "Error saving data in db.";

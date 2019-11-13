@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let User = require("../models/users");
 let Device = require("../models/device");
+let Activity = require("../models/activity");
 let fs = require('fs');
 let bcrypt = require("bcryptjs");
 let jwt = require("jwt-simple");
@@ -93,9 +94,9 @@ router.get("/account" , function(req, res) {
 				               deviceId: device.deviceId,
 				               apikey: device.apikey,
 				         });
-			         }
+                  }
 			         userStatus['devices'] = deviceList;
-			      }
+               }
 			      
                return res.status(200).json(userStatus);            
 		      });
