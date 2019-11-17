@@ -45,7 +45,7 @@ router.post('/pulse', function(req, res, next) {
             } else {
                 // Create a new hw data with user email time stamp 
                 var activity = new Activity({
-                    deviceid: req.body.deviceId,
+                    deviceId: req.body.deviceId,
                     lon: req.body.longitude,
                     lat: req.body.latitude,
                     uv: req.body.uv

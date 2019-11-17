@@ -89,6 +89,20 @@ function pingDevice(event, deviceId) {
 
 function populateDeviceActivity(event){
   console.log(event.data.deviceId);
+  $('#activityItemList').html('');
+  $.ajax({
+    url: '/users/activities',
+    type: 'GET',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },  
+    contentType: 'application/json',
+    data: { deviceId: event.data.deviceId }, 
+    dataType: 'json'
+  }).done(function(data){
+    for(let activity of data.activities){
+      $('#activityItemList').append('<li>Longitude: '+activity.lon+
+      ', Latitude: '+activity.lat+', UV index: '+activity.uv);
+    }
+  })
 }
 
 // Show add device form and hide the add device button (really a link)
