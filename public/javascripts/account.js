@@ -100,7 +100,7 @@ function populateDeviceActivity(event){
   }).done(function(data){
     for(let activity of data.activities){
       $('#activityItemList').append('<li>Longitude: '+activity.lon+
-      ', Latitude: '+activity.lat+', UV index: '+activity.uv);
+      ', Latitude: '+activity.lat+', UV index: '+activity.uv+', Speed: '+activity.speed);
     }
   })
 }

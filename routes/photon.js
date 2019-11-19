@@ -48,7 +48,8 @@ router.post('/pulse', function(req, res, next) {
                     deviceId: req.body.deviceId,
                     lon: req.body.longitude,
                     lat: req.body.latitude,
-                    uv: req.body.uv
+                    uv: req.body.uv,
+                    speed: req.body.GPS_speed
                 });
 
                 // Save device. If successful, return success. If not, return error message.                          

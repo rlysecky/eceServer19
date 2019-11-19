@@ -6,6 +6,7 @@ var activitySchema = new db.Schema({
     lon: Number,
     lat: Number,
     uv: Number,
+    speed: Number,
     submitTime: { type: Date, default: Date.now }
 });
 
