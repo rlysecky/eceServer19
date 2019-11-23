@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<!--Import materialize.css-->
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js">
+	</script>
+
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+	<nav>
+		<div class="nav-wrapper teal lighten-2">
+			<a href="#!" class="brand-logo">WeathR</a>
+			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="forecast3.html">3-day</a></li>
+        <li><a href="forecast10.html">10-day</a></li>
+        <li><a href="alerts.html">Alerts</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="forecast3.html">3-day</a></li>
+        <li><a href="forecast10.html">10-day</a></li>
+        <li><a href="alerts.html">Alerts</a></li>
+  </ul>
+
+  <div class="row">
+    <div class="col s10 offset-s1">
+      <div class="row">
+        <div class="col s12 m4">
+          <div class="card  blue-grey lighten-5">
+            <div class="card-image">
+              <img src="images/thunderstorms.jpg">
+            </div>
+            <div class="card-content">
+              <p class="blue-text">TODAY</p>
+              <p>High: 70&deg; Low: 66&deg;<p>
+            </div>
+            <div class="card-action">
+              <p>Rain and maybe a thundestorm</p>    
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="card  blue-grey lighten-5">
+            <div class="card-image">
+              <img src="images/rain.jpg">
+            </div>
+            <div class="card-content">
+              <p class="blue-text">TOMORROW</p>
+              <p>High: 67&deg; Low: 51&deg;<p>
+            </div>
+            <div class="card-action">
+              <p>A couple of showers</p>    
+            </div>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="card  blue-grey lighten-5">
+            <div class="card-image">
+              <img src="images/cloudy.jpg">
+            </div>
+            <div class="card-content">
+              <p class="blue-text">FRIDAY</p>
+              <p>High: 64&deg; Low: 42&deg;<p>
+            </div>
+            <div class="card-action">
+              <p>A few clouds. Maybe rain.</p>    
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="page-footer teal">
+    <div class="footer-copyright">
+      <div class="container center">
+        &copy; 2019 WeathR
+      </div>
+    </div>
+  </footer>
+</body>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.sidenav');
+  var instances = M.Sidenav.init(elems);
+});
+</script>
+
+</html>
