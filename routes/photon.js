@@ -20,7 +20,7 @@ router.post('/pulse', function(req, res, next) {
     //     console.log(a);
     // }
     console.log("Body: " + req.body);
-    console.log("Activities: " + JSON.stringify(req.body.activities));
+    console.log("Activities: " + JSON.stringify(req.body.activities[0]));
     responseJson.status = "GOOD";
     responseJson.message = "activity recieved";
     return res.status(201).send(JSON.stringify(responseJson));
