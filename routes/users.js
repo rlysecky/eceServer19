@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let User = require("../models/users");
 let Device = require("../models/device");
+let Activity = require("../models/activity");
 let fs = require('fs');
 let bcrypt = require("bcryptjs");
 let jwt = require("jwt-simple");
@@ -99,5 +100,29 @@ router.get("/account", function(req, res) {
     }
 });
 
+router.get('/activities', (req, res) => {
+    if (!req.headers["x-auth"]) {
+        return res.status(401).json({ success: false, message: "No authentication token" });
+    }
+    if (!req.query.deviceId) {
+        return res.status(401).json({ success: false, message: "No device ID specified." });
+    }
+
+    var authToken = req.headers["x-auth"];
+
+    try {
+        var decodedToken = jwt.decode(authToken, secret);
+
+        Activity.find({ deviceId: req.query.deviceId }, function(err, activities) {
+            if (err) {
+                return res.status(400).json({ success: false, message: "there is an issue with activity storing." });
+            } else {
+                return res.status(200).json({ 'activities': activities })
+            }
+        });
+    } catch (ex) {
+        return res.status(401).json({ success: false, message: "Invalid authentication token." });
+    }
+})
 
 module.exports = router;
