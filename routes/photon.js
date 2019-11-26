@@ -15,7 +15,7 @@ router.post('/pulse', function(req, res, next) {
         responseJson.message = "Request missing activities parameter.";
         return res.status(201).send(JSON.stringify(responseJson));
     }
-    console.log(JSON.stringify(req));
+    console.log(req);
     // for (let a of JSON.parse(req.body.activities)) {
     //     console.log(a);
     // }
