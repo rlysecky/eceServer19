@@ -19,7 +19,9 @@ router.post('/pulse', function(req, res, next) {
     for (let a of req.body.activities) {
         console.log(req.body.activities);
     }
-
+    responseJson.status = "GOOD";
+    responseJson.message = "activity recieved";
+    return res.status(201).send(JSON.stringify(responseJson));
     // // Ensure the POST data include properties id and email
     // if (!req.body.hasOwnProperty("deviceId")) {
     //     responseJson.status = "ERROR";
