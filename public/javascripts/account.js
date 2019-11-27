@@ -1,3 +1,12 @@
+$(document).ready(function(){
+  $('.collapsible').collapsible();
+});
+
+function ShowAcct(){
+  $('#accountInfo').show();
+  $('#main').hide();
+}
+
 function sendReqForAccountInfo() {
   $.ajax({
     url: '/users/account',
