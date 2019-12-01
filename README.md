@@ -8,7 +8,7 @@ Cool app that will track your runs and temperature
  - [ ] Link to 5 minute pitch video
  - [ ] Link to 20 minute demonstration video
 ## Account Creation and Management
- - [ ] A user must be able to **create** an account, using an **email address** as the username and a **strong password**, and register **at least one** device with their account.
+ - [x] A user must be able to **create** an account, using an **email address** as the username and a **strong password**, and register **at least one** device with their account.
  - [ ] A user should be able to **update** any of their account information.
  - [ ] A user should be able to **replace** a device with a new one in their account.
  - [ ] A user should be able to have **more than one** device.
@@ -19,7 +19,7 @@ Cool app that will track your runs and temperature
  - [ ] If the UV exposure during an activity **exceeds** a user-defined
        threshold (the threshold will be set in the web application), an
        **alert should be provided** on the IoT device.
- - [ ] After an activity is complete, the IoT device should **transmit the
+ - [x] After an activity is complete, the IoT device should **transmit the
        activity data to the server**.
  - [ ] If the WiFi connection is **not available**, the IoT device should
        **locally store the data** for up to **24 hours** and submit the data
@@ -28,7 +28,7 @@ Cool app that will track your runs and temperature
        activity if the **user’s speed** is **0** for **more than 30 seconds**, the
        device should **pause the activity data recording** until the user
        starts moving again.
- - [ ] The server should **require an APIKEY** from the IoT device for
+ - [x] The server should **require an APIKEY** from the IoT device for
        posting activity data.
 ## Web Application
  - [ ] A summary view showing the user’s **total activity duration**, total 
@@ -53,8 +53,8 @@ Cool app that will track your runs and temperature
        a simple as illuminating an LED. This setting should be made
        in the account profile page.
  - [ ] The web application should include a weather forecast including
-       UV index for at least the **next five days**. Your server    should
-       use a    third-party API to acquire this information.
+       UV index for at least the **next five days**. Your server should
+       use a third-party API to acquire this information.
  - [ ] The web application should have a **navigation menu**.
  - [ ] The web application should use **responsive design to be viewable
        on desktops, tablets, and smartphones.**
@@ -66,7 +66,7 @@ Cool app that will track your runs and temperature
        server should use a third-party weather service to determine the
        temperature and humidity at the activity's location, which should
        be stored in the database for the activity.
- - [ ] Your server must be implemented using Node.js, Express, and
+ - [x] Your server must be implemented using Node.js, Express, and
        MongoDB.
  - [ ] Your server’s endpoints must use RESTful APIs. Each endpoint must
            have accompanying documentation that describes the behavior, the
