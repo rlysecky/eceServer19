@@ -1,3 +1,5 @@
+var userEmail = "";
+
 function sendReqForAccountInfo() {
   $.ajax({
     url: '/users/account',
@@ -104,6 +106,17 @@ function populateDeviceActivity(event){
   })
 }
 
+function showEditAccount() {
+  $("#fullNameEdit").val("");
+  $("#editAccountButton").hide();
+  $("#editAccountInfo").slideDown();
+}
+
+function hideEditAccount() {
+  $("#editAccountButton").show();
+  $("#editAccountInfo").slideUp();
+}
+
 // Show add device form and hide the add device button (really a link)
 function showAddDeviceForm() {
   $("#deviceId").val("");        // Clear the input for the device ID
@@ -118,6 +131,131 @@ function hideAddDeviceForm() {
   $("#error").hide();
 }
 
+function sendUpdateRequest() {
+  $.ajax({
+    url: '/users/account',
+    type: 'GET',
+    headers: { 'x-auth': window.localStorage.getItem("authToken") },
+    dataType: 'json'
+  })
+    .done(accountInfoOnlySuccess)
+    .fail(accountInfoError);
+}
+
+// If the old password is correct, continue the update process
+function validateSuccess(data, textSatus, jqXHR) {
+  $.ajax({
+    type: "PUT",
+    url: '/users/update',
+    data: {
+      email: userEmail,
+      password: $('#passwordEdit').val(),
+      fullName: $("#fullNameEdit").val()
+    },
+    dataType: "json"
+  }).done(function(returnedData) {
+    $('#editErrors').html("Success! " + returnedData.message);
+    $('#editErrors').show();
+  }).fail(function(jqXHR) {
+    $('#editErrors').html("Error: Could not update account information.");
+    $('#editErrors').show();
+  });
+}
+
+function validateError(jqXHR, textStatus, errorThrown) {
+  if (jqXHR.statusCode == 404) {
+    $("#editErrors").html("Error: Server could not be reached.");
+    $('#editErrors').show();
+  }
+  else {
+    $('#editErrors').html("Error: Password is incorrect.");
+    $('#editErrors').show();
+  }
+}
+
+function accountInfoOnlySuccess(data, textSatus, jqXHR) {
+  let email = data.email;
+  userEmail = data.email;
+  let newPassword = $('#passwordEdit').val();
+  let newPasswordConfirm = $('#passwordEditConfirm').val();
+  let oldPassword = $("#currentPasswordEdit").val();
+  let validLogin = true;
+  
+  $("#editErrors").hide();
+  $("#editErrors").html("");
+
+  // check old password is entered
+  if (!oldPassword) {
+    $("#editErrors").html("Error: You need to provide your old password.");
+    $("#editErrors").show();
+    return;
+  }
+
+  // check the new passwords are the same
+  if (newPassword != newPasswordConfirm) {
+    $("#editErrors").html("Error: New Passwords do not match.");
+    $("#editErrors").show();
+    return;
+  }
+
+  // check new password is strong
+  let passwordLowercaseRegex = /[a-z]+/;
+  let passwordUppercaseRegex = /[A-Z]+/;
+  let passwordDigitRegex = /\d+/;
+  let passwordSpecCharRegex = /[!@#\$%\^&]+/;
+
+  let lowerCaseCheck = passwordLowercaseRegex.exec(newPassword);
+  let upperCaseCheck = passwordUppercaseRegex.exec(newPassword);
+  let digitCheck = passwordDigitRegex.exec(newPassword);
+  let specialCharacterCheck = passwordSpecCharRegex.exec(newPassword);
+
+  if (newPassword.length < 10 && newPassword.length != 0) {
+    $('#editErrors').append("<div class='red-text text-darken-2'>Password needs to be at least 10 characters long.</div>");
+    $('#editErrors').show();
+    validLogin = false;
+  }
+
+  if (lowerCaseCheck === null && newPassword.length != 0) {
+    $('#editErrors').append("<div class='red-text text-darken-2'>Password must contain at least one lower case character.</div>");
+    $('#editErrors').show();
+    validLogin = false;
+  }
+
+  if (upperCaseCheck === null && newPassword.length != 0) {
+    $('#editErrors').append("<div class='red-text text-darken-2'>Password must contain at least one upper case character.</div>");
+    $('#editErrors').show();
+    validLogin = false;
+  }
+
+  if (digitCheck === null && newPassword.length != 0) {
+    $('#editErrors').append("<div class='red-text text-darken-2'>Password must contain at least one digit.</div>");
+    $('#editErrors').show();
+    validLogin = false;
+  }
+
+  if (specialCharacterCheck === null && newPassword.length != 0) {
+    $('#editErrors').append("<div class='red-text text-darken-2'>Password must contain at least one special character. Ex: (!@#\$%\^&)</div>");
+    $('#editErrors').show();
+    validLogin = false;
+  }
+
+  // Don't process an AJAX call
+  if (!validLogin) {
+    return;
+  }
+
+  // check if the old password is correct
+  $.ajax({
+    url: '/users/signin',
+    type: 'POST',
+    contentType: 'application/json',
+    data: JSON.stringify({ email : email, password : oldPassword }), 
+    dataType: 'json'
+  })
+    .done(validateSuccess)
+    .fail(validateError);
+}
+
 // Handle authentication on page load
 $(function() {
   // If there's no authToekn stored, redirect user to 
@@ -127,10 +265,14 @@ $(function() {
   }
   else {
     sendReqForAccountInfo();
+    hideEditAccount();
     $('#main').show();
   }
   
   // Register event listeners
+  $('#saveEdit').click(sendUpdateRequest);
+  $("#editAccount").click(showEditAccount);
+  $("#cancelEdit").click(hideEditAccount);
   $("#addDevice").click(showAddDeviceForm);
   $("#registerDevice").click(registerDevice);  
   $("#cancel").click(hideAddDeviceForm);  

@@ -9,7 +9,7 @@ Cool app that will track your runs and temperature
  - [ ] Link to 20 minute demonstration video
 ## Account Creation and Management
  - [x] A user must be able to **create** an account, using an **email address** as the username and a **strong password**, and register **at least one** device with their account.
- - [ ] A user should be able to **update** any of their account information.
+ - [x] A user should be able to **update** any of their account information.
  - [ ] A user should be able to **replace** a device with a new one in their account.
  - [ ] A user should be able to have **more than one** device.
 ## IoT Device
@@ -71,5 +71,5 @@ Cool app that will track your runs and temperature
  - [ ] Your server’s endpoints must use RESTful APIs. Each endpoint must
            have accompanying documentation that describes the behavior, the
            expected parameters, and responses.
- - [ ] Access to the web application should be controlled using token
+ - [x] Access to the web application should be controlled using token
        based authentication.
