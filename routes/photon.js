@@ -16,20 +16,6 @@ router.post('/pulse', function(req, res, next) {
         return res.status(201).send(JSON.stringify(responseJson));
     }
     console.log(req.body);
-    // for (let a of JSON.parse(req.body.activities)) {
-    //     console.log(a);
-    // }
-    /*
-    { 
-        "k": "bnpCaZYBifkRGX38IPLN7pvfPKO1iMs3",
-        "a": [ 
-            {"n": "0.000000", "t": "0.000000", "s": "0.000000", "u": "65535.000000"} 
-        ] 
-    }
-    */
-    // responseJson.status = "GOOD";
-    // responseJson.message = "activity recieved";
-    // return res.status(201).send(JSON.stringify(responseJson));
     // // Ensure the POST data include properties id and email
     if (!req.body.hasOwnProperty("deviceId")) {
         responseJson.status = "ERROR";
@@ -44,41 +30,45 @@ router.post('/pulse', function(req, res, next) {
     }
 
     // Find the device and verify the apikey
-    Device.findOne({ deviceId: req.body.deviceId }, function(err, device) {
-        if (device !== null) {
-            if (device.apikey != req.body.apikey) {
-                responseJson.status = "ERROR";
-                responseJson.message = "Invalid apikey for device ID " + req.body.deviceId + ".";
-                return res.status(201).send(JSON.stringify(responseJson));
-            } else {
-                // Create a new hw data with user email time stamp 
-                var activity = new Activity({
-                    deviceId: req.body.deviceId,
-                    lon: req.body.longitude,
-                    lat: req.body.latitude,
-                    uv: req.body.uv,
-                    speed: req.body.GPS_speed
-                });
+    // Device.findOne({ deviceId: req.body.deviceId }, function(err, device) {
+    //     if (device !== null) {
+    //         if (device.apikey != req.body.apikey) {
+    //             responseJson.status = "ERROR";
+    //             responseJson.message = "Invalid apikey for device ID " + req.body.deviceId + ".";
+    //             return res.status(201).send(JSON.stringify(responseJson));
+    //         } else {
+    //             // Create a new hw data with user email time stamp 
+    //             var activity = new Activity({
+    //                 deviceId: req.body.deviceId,
+    //                 activity: [{
+    //                     lon: req.body.longitude,
+    //                     lat: req.body.latitude,
+    //                     uv: req.body.uv,
+    //                     speed: req.body.GPS_speed
+    //                 }],
+    //                 began: req.body.began,
+    //                 ended: req.body.ended
+    //             });
 
-                // Save device. If successful, return success. If not, return error message.                          
-                activity.save(function(err, run) {
-                    if (err) {
-                        responseJson.status = "ERROR";
-                        responseJson.message = "Error saving data in db.";
-                        return res.status(201).send(JSON.stringify(responseJson));
-                    } else {
-                        responseJson.status = "OK";
-                        responseJson.message = "Data saved in db with object ID " + run._id + ".";
-                        return res.status(201).send(JSON.stringify(responseJson));
-                    }
-                });
-            }
-        } else {
-            responseJson.status = "ERROR";
-            responseJson.message = "Device ID " + req.body.deviceId + " not registered.";
-            return res.status(201).send(JSON.stringify(responseJson));
-        }
-    });
+    //             // Save device. If successful, return success. If not, return error message.                          
+    //             activity.save(function(err, run) {
+    //                 if (err) {
+    //                     responseJson.status = "ERROR";
+    //                     responseJson.message = "Error saving data in db.";
+    //                     return res.status(201).send(JSON.stringify(responseJson));
+    //                 } else {
+    //                     responseJson.status = "OK";
+    //                     responseJson.message = "Data saved in db with object ID " + run._id + ".";
+    //                     return res.status(201).send(JSON.stringify(responseJson));
+    //                 }
+    //             });
+    //         }
+    //     } else {
+    //         responseJson.status = "ERROR";
+    //         responseJson.message = "Device ID " + req.body.deviceId + " not registered.";
+    //         return res.status(201).send(JSON.stringify(responseJson));
+    //     }
+    // });
 });
 
 module.exports = router;
