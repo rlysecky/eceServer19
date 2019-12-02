@@ -15,6 +15,7 @@ router.post('/pulse', function(req, res, next) {
         responseJson.message = "Request missing activities parameter.";
         return res.status(201).send(JSON.stringify(responseJson));
     }
+    req.body.activity.pop();
     console.log(req.body);
     // // Ensure the POST data include properties id and email
     if (!req.body.hasOwnProperty("deviceId")) {
@@ -40,12 +41,7 @@ router.post('/pulse', function(req, res, next) {
                 // Create a new hw data with user email time stamp 
                 var activity = new Activity({
                     deviceId: req.body.deviceId,
-                    activity: [{
-                        lon: req.body.longitude,
-                        lat: req.body.latitude,
-                        uv: req.body.uv,
-                        speed: req.body.GPS_speed
-                    }],
+                    activity: req.body.activity,
                     began: req.body.began,
                     ended: req.body.ended
                 });
