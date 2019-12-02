@@ -2,6 +2,8 @@
 # SunRunr
 Cool app that will track your runs and temperature
 
+URL: ec2-52-37-217-169.us-west-2.compute.amazonaws.com:3000
+
 ## Read Me Requirements
  - [x] website: ec2-52-37-217-169.us-west-2.compute.amazonaws.com:3000
  - [ ] Login Credentials to a user with recently collected data
