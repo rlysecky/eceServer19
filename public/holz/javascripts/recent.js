@@ -34,7 +34,8 @@ function displayMostRecentPothole(data, textSatus, jqXHR) {
    let uluru = {lat: latitude, lng: longitude};
    let map = new google.maps.Map(document.getElementById('map'), {
 	   zoom: 10,
-	   center: uluru
+	   center: uluru,
+	   fullscreenControl: false,
 	   mapTypeControlOptions: {
         style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
       }
