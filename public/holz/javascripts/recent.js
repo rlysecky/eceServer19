@@ -35,6 +35,9 @@ function displayMostRecentPothole(data, textSatus, jqXHR) {
    let map = new google.maps.Map(document.getElementById('map'), {
 	   zoom: 10,
 	   center: uluru
+	   mapTypeControlOptions: {
+        style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+      }
 	});
 	    
 	// Add markers for all potholes            
